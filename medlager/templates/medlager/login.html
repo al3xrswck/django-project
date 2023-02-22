@@ -1,0 +1,24 @@
+{% extends 'medlager/base.html' %}
+{% block specialTitle %}
+<div class="d-inline-block px-3">
+    {{ pagetitle }}
+</div>
+{% endblock %}
+{% block content%}
+<div id="login" style="width: 100vw!important; background-color: transparent; position: fixed!important; z-index: 10!important;">
+    <div class="d-flex justify-content-center align-items-center w-100 h-100">
+        <form class="w-25 bg-secondary text-white p-5" method="post" action="">
+            {% load crispy_forms_tags %}
+            {% csrf_token %}
+            {{ login_form|crispy }}
+            <div class="d-flex w-100 justify-content-end align-items-center mt-5">
+                <button type="submit" class="btn btn-light w-50" value="Login">Login</button
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    height = (window.innerHeight - document.getElementsByTagName('nav')[0].getBoundingClientRect().height) + "px"
+    document.getElementById('login').style.height = height
+</script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ pagetitle }} - DRK KV Hohenlohe e.V.</title>
+        <link rel="shortcut icon" type="image/png" href="{% static 'android-chrome-512x512.png' %}">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex justify-content-center align-items-center" href="#">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/DRK_Logo2.svg" alt="Logo" height="40" class="d-inline-block mx-2">
+                    <div class="d-inline-block fs-6 border-end border-secondary px-3">
+                        Kreisverband Hohenlohe e. V.<br>
+                        <span class="fw-bold">Bereitschaften</span>
+                    </div>
+                    {% block specialTitle %}{% endblock %}
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    {% if request.user.is_authenticated %}
+                    <div class="d-flex justify-content-between w-100">
+                        <div>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">Home</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Medlager
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item disabled">Medlager</a></li>
+                                        <li><a class="dropdown-item" href="#">Container Management</a></li>
+                                        <li><a class="dropdown-item" href="#">Unterpunkt 1.2</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item disabled">Unterpunkt 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Unterpunkt 2.1</a></li>
+                                        <li><a class="dropdown-item" href="#">Unterpunkt 2.2</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Stammdaten
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Fahrzeuge</a></li>
+                                        <li><a class="dropdown-item" href="#">Unterpunkt 1.2</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item disabled">Unterpunkt 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Unterpunkt 2.1</a></li>
+                                        <li><a class="dropdown-item" href="#">Unterpunkt 2.2</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Men&uuml;punkt 2</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item dropdown">
+                                    <a class="bg-secondary text-light nav-link text-align-center rounded-1 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-circle"></i> {{ request.user.username }}</a>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="{% url 'medlager:profile' %}"><i class="bi bi-person-circle"></i> Profile</a></li>
+                                        {% if request.user.is_staff %}
+                                        <li><a class="dropdown-item" href="/admin"><i class="bi bi-wrench"></i> Admin</a></li>
+                                        {% endif %}
+                                        <li><a class="dropdown-item" href="{% url 'medlager:logout' %}"><i class="bi bi-door-open-fill"></i> Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column w-100 align-items-center my-3">
+            {% block content%}
+            {% endblock %}
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+
+</html>

@@ -1,0 +1,46 @@
+{% extends 'medlager/base.html' %}
+{% block content%}
+<div class="d-flex flex-row w-50 mb-3">
+    <div class="d-flex justify-content-center align-items-center w-25 border p-3">
+        <img src="https://cdn-icons-png.flaticon.com/512/147/147144.png" class="m-3 w-100" style="height: fit-content!important;">
+    </div>
+    <div class="w-75 border ms-3 p-3">
+        <h5>User data</h5>
+        <table class="table text-start table-striped table-hover w-100">
+            <tr class="w-100">
+                <th class="w-50">First name</th>
+                <td class="w-50">{% if request.user.first_name %}{{ request.user.first_name }}{% else %}<span class="text-danger">Missing!{% endif %}</td>
+            </tr>
+            <tr class="w-100">
+                <th class="w-50">Last name</th>
+                <td class="w-50">{% if request.user.last_name %}{{ request.user.last_name }}{% else %}<span class="text-danger">Missing!{% endif %}</td>
+            </tr>
+            <tr class="w-100">
+                <th class="w-50">Username</th>
+                <td class="w-50">{{ request.user.username }}</td>
+            </tr>
+            <tr class="w-100">
+                <th class="w-50">Mail address</th>
+                <td class="w-50">{% if request.user.email %}{{ request.user.email }}{% else %}<span class="text-danger">Missing!{% endif %}</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="d-flex flex-row w-50 mx-auto mb-3">
+    <div class="d-flex justify-content-center align-items-center w-25 mx-1 p-3">
+        &nbsp;
+    </div>
+    <div class="w-75 border ms-2 p-3">
+        <h5>Your Roles: ({{ usergroups|length }})</h5>
+        {% if not usergroups %}
+        <i class="bi bi-emoji-frown"></i> You don't have any active assignments.
+        {% else %}
+        <ul>
+            {% for ug in usergroups %}
+            <li class="pb-1">{{ ug }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
